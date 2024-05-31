@@ -1,27 +1,20 @@
-type CardType = {
-  id: number;
-  front: string;
-  back: string;
-};
+import { db } from '@/server/db';
+import { auth } from '@clerk/nextjs/server';
 
-const mockCards: CardType[] = [
-  {
-    id: 1,
-    front: 'Test',
-    back: 'Тест',
-  },
-  {
-    id: 2,
-    front: 'Apple',
-    back: 'Яблуко',
-  },
-];
+export default async function Home() {
+  const user = auth();
 
-export default function Home() {
+  const cards = await (user.userId
+    ? db.query.cards.findMany({
+        orderBy: (model, { desc }) => desc(model.id),
+        where: (model, { eq }) => eq(model.userId, user.userId),
+      })
+    : []);
+
   return (
     <main>
       <div>
-        {mockCards.map((card) => (
+        {cards.map((card) => (
           <div key={card.id}>
             {card.front} | {card.back}
           </div>
