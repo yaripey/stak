@@ -4,6 +4,7 @@ import './globals.css';
 import SideBar from '@/app/_components/SideBar';
 import { ClerkProvider, SignedIn, SignedOut } from '@clerk/nextjs';
 import NotSignedPage from './_components/NotSignedPage';
+import { cn } from '@/lib/utils';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="h-full w-full">
-        <body className={inter.className + ' ' + 'h-full w-full'}>
+        <body className={cn([inter.className, 'h-full w-full py-5'])}>
           <SignedIn>
             <div className="flex h-full w-full">
               <SideBar />
