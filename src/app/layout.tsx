@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="h-full w-full">
-        <body className={cn([inter.className, 'h-full w-full py-5'])}>
+        <body className={cn([inter.className, 'h-full w-full p-5'])}>
           <SignedIn>
             <div className="flex h-full w-full">
               <SideBar />
