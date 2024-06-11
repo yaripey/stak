@@ -1,5 +1,7 @@
 'use client';
 
+// This is a WIP component of a better looking sidebar
+
 import { UserButton } from '@clerk/nextjs';
 import Logo from './Logo';
 import Link from 'next/link';

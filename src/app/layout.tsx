@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import SideBar from '@/app/_components/SideBar';
 import { ClerkProvider, SignedIn, SignedOut } from '@clerk/nextjs';
 import NotSignedPage from './_components/NotSignedPage';
 import { cn } from '@/lib/utils';
+import TopBar from './_components/TopBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,10 +23,8 @@ export default function RootLayout({
       <html lang="en" className="h-full w-full">
         <body className={cn([inter.className, 'h-full w-full p-5'])}>
           <SignedIn>
-            <div className="flex h-full w-full">
-              <SideBar />
-              {children}
-            </div>
+            <TopBar />
+            <div className="flex h-full w-full">{children}</div>
           </SignedIn>
           <SignedOut>
             <NotSignedPage />
