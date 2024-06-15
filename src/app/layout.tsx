@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="h-full w-full">
+      <html lang="en" className="w-full">
         <body className={cn([inter.className, 'h-full w-full p-5'])}>
           <SignedIn>
             <TopBar />
