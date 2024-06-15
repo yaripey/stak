@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from '@/components/ui/table';
+import CardRowActions from './CardRowActions';
 
 type CardRowProps = {
   front: string;
@@ -10,7 +11,9 @@ export default function CardRow({ front, back }: CardRowProps) {
     <TableRow>
       <TableCell>{front}</TableCell>
       <TableCell>{back}</TableCell>
-      <TableCell className="text-right">Actions</TableCell>
+      <TableCell className="text-right">
+        <CardRowActions />
+      </TableCell>
     </TableRow>
   );
 }
