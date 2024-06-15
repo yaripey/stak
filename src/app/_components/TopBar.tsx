@@ -1,6 +1,7 @@
 import { UserButton } from '@clerk/nextjs';
 import Logo from './Logo';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function TopBar() {
   return (
@@ -8,7 +9,9 @@ export default function TopBar() {
       <Logo />
 
       <div className="flex items-center gap-5">
-        <Button>New Card</Button>
+        <Link href="/create">
+          <Button>New Card</Button>
+        </Link>
         <UserButton />
       </div>
     </div>
