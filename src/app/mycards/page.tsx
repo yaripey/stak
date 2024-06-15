@@ -8,6 +8,8 @@ import {
 import { db } from '@/server/db';
 import { auth } from '@clerk/nextjs/server';
 import CardRow from './_components/CardRow';
+import { deleteCard } from '@/server/queries';
+import { revalidatePath } from 'next/cache';
 
 export default async function Page() {
   const user = auth();
@@ -31,7 +33,20 @@ export default async function Page() {
         </TableHeader>
         <TableBody>
           {cards.map(({ front, back, id }) => (
-            <CardRow front={front} back={back} key={id} />
+            <CardRow
+              front={front}
+              back={back}
+              key={id}
+              deleteCard={async () => {
+                'use server';
+
+                // TODO: make a dialog to confirm deletion
+
+                // TODO: add some popup about successfull delete
+                await deleteCard(id);
+                revalidatePath('/mycards');
+              }}
+            />
           ))}
         </TableBody>
       </Table>
