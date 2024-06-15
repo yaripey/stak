@@ -35,4 +35,6 @@ export async function updateCard(id: number, front: string, back: string) {
   if (!user.userId) throw new Error('Anauthorized');
 
   await db.update(cards).set({ front, back }).where(eq(cards.id, id));
+
+  redirect('/mycards');
 }

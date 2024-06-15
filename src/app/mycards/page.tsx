@@ -34,6 +34,7 @@ export default async function Page() {
         <TableBody>
           {cards.map(({ front, back, id }) => (
             <CardRow
+              id={id}
               front={front}
               back={back}
               key={id}

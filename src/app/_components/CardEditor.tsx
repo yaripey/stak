@@ -14,31 +14,33 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { createCard } from '@/server/queries';
-import { redirect } from 'next/navigation';
+import { createCard, updateCard } from '@/server/queries';
 
 const formSchema = z.object({
   front: z.string(),
   back: z.string(),
 });
 
-export default function CardEditor() {
+type CardEditorProps = {
+  front?: string;
+  back?: string;
+  id?: number;
+};
+
+export default function CardEditor({ id, front, back }: CardEditorProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      front: '',
-      back: '',
+      front: front ?? '',
+      back: back ?? '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createCard(values.front, values.back);
-
-    // TODO: This is a strange workaround, figure this out
-    try {
-      redirect('/');
-    } catch (error) {
-      console.log(error);
+    if (id) {
+      await updateCard(id, values.front, values.back);
+    } else {
+      await createCard(values.front, values.back);
     }
   }
 
