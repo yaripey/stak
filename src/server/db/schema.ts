@@ -23,3 +23,5 @@ export const cards = createTable(
   },
   (example) => ({ front: index('front_idx').on(example.front) }),
 );
+
+export type CardType = typeof cards.$inferSelect;

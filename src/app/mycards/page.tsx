@@ -1,15 +1,6 @@
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import { db } from '@/server/db';
 import { auth } from '@clerk/nextjs/server';
-import CardRow from './_components/CardRow';
-import { deleteCard } from '@/server/queries';
-import { revalidatePath } from 'next/cache';
+import CardsCollection from './_components/CardsCollection';
 
 export default async function Page() {
   const user = auth();
@@ -23,34 +14,7 @@ export default async function Page() {
 
   return (
     <div className="w-full">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Front</TableHead>
-            <TableHead>Back</TableHead>
-            <TableHead className="text-right"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {cards.map(({ front, back, id }) => (
-            <CardRow
-              id={id}
-              front={front}
-              back={back}
-              key={id}
-              deleteCard={async () => {
-                'use server';
-
-                // TODO: make a dialog to confirm deletion
-
-                // TODO: add some popup about successfull delete
-                await deleteCard(id);
-                revalidatePath('/mycards');
-              }}
-            />
-          ))}
-        </TableBody>
-      </Table>
+      <CardsCollection cards={cards} />
     </div>
   );
 }
