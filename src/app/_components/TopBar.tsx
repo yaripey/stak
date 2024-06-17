@@ -9,11 +9,17 @@ export default function TopBar() {
       <Logo />
 
       <div className="flex items-center gap-5">
-        <Link href="/mycards">
+        <Link href="/collection/cards">
           <Button>My Cards</Button>
         </Link>
-        <Link href="/create">
+        <Link href="/collection/languages">
+          <Button>My Languages</Button>
+        </Link>
+        <Link href="/create/card">
           <Button>New Card</Button>
+        </Link>
+        <Link href="/create/language">
+          <Button>New Language</Button>
         </Link>
         <UserButton />
       </div>

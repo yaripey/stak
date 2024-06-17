@@ -12,9 +12,11 @@ export default async function Page() {
       })
     : []);
 
-  return (
-    <div className="w-full">
-      <CardsCollection cards={cards} />
-    </div>
-  );
+  const languages = await (user.userId
+    ? db.query.languages.findMany({
+        where: (model, { eq }) => eq(model.userId, user.userId),
+      })
+    : []);
+
+  return <CardsCollection cards={cards} languages={languages} />;
 }

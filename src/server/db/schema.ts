@@ -25,6 +25,9 @@ export const languages = createTable(
 );
 
 export type LanguageType = typeof languages.$inferSelect;
+export type LanguageWithCardsType = LanguageType & {
+  cards: CardType[];
+};
 
 export const cards = createTable(
   'card',

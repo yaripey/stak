@@ -14,39 +14,85 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { createCard, updateCard } from '@/server/queries';
+import { LanguageType } from '@/server/db/schema';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { createOrUpdateCard } from '@/server/actions/cards';
 
 const formSchema = z.object({
   front: z.string(),
   back: z.string(),
+  languageId: z.string({ required_error: 'Please select a language.' }),
 });
 
 type CardEditorProps = {
   front?: string;
   back?: string;
   id?: number;
+  languageId?: number;
+  languages: LanguageType[];
 };
 
-export default function CardEditor({ id, front, back }: CardEditorProps) {
+export default function CardEditor({
+  id,
+  front,
+  back,
+  languageId,
+  languages,
+}: CardEditorProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       front: front ?? '',
       back: back ?? '',
+      languageId: languageId ? languageId.toString() : undefined,
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (id) {
-      await updateCard(id, values.front, values.back);
-    } else {
-      await createCard(values.front, values.back);
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    createOrUpdateCard(
+      values.front,
+      values.back,
+      parseInt(values.languageId),
+      id,
+    );
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="languageId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Language</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a language for this card" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {languages.map((language) => (
+                    <SelectItem
+                      key={language.id}
+                      value={language.id.toString()}
+                    >
+                      {language.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="front"

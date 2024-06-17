@@ -61,7 +61,7 @@ export default function SideBar() {
       )}
     >
       <div className="flex w-full items-center justify-between">
-        <Logo isExpanded={isExpanded} />
+        <Logo />
 
         <button
           className={cn('flex-grow-0 p-2', { hidden: !isExpanded })}

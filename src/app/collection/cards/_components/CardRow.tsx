@@ -5,16 +5,15 @@ type CardRowProps = {
   id: number;
   front: string;
   back: string;
-  deleteCard: () => void;
 };
 
-export default function CardRow({ id, front, back, deleteCard }: CardRowProps) {
+export default function CardRow({ id, front, back }: CardRowProps) {
   return (
     <TableRow>
       <TableCell>{front}</TableCell>
       <TableCell>{back}</TableCell>
       <TableCell className="text-right">
-        <CardRowActions deleteCard={deleteCard} cardId={id} />
+        <CardRowActions cardId={id} />
       </TableCell>
     </TableRow>
   );
