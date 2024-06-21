@@ -1,5 +1,6 @@
 import { db } from '@/server/db';
 import { auth } from '@clerk/nextjs/server';
+import CardsLearner from '../_components/CardsLearner';
 
 export default async function Learn({
   params,
@@ -21,23 +22,13 @@ export default async function Learn({
   if (!language) return <div>Error selecting language.</div>;
 
   const cards = await db.query.cards.findMany({
-    where: (model, { eq, and }) =>
+    where: (model, { eq, and, lte }) =>
       and(
         eq(model.userId, user.userId),
         eq(model.languageId, languageIdNumber),
+        lte(model.dontShowUntil, new Date()),
       ),
   });
 
-  return (
-    <div>
-      <h1>{language.name}</h1>
-      <div>
-        {cards.map((card) => (
-          <div key={card.id}>
-            {card.front} | {card.back}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <CardsLearner language={language} initCards={cards} />;
 }

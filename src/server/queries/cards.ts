@@ -39,3 +39,16 @@ export async function updateCard(
     .set({ front, back, languageId })
     .where(and(eq(cards.id, id), eq(cards.userId, user.userId)));
 }
+
+export async function updateCardStreak(
+  id: number,
+  streak: number,
+  dontShowUntil: Date,
+) {
+  const user = checkAuthorization();
+
+  await db
+    .update(cards)
+    .set({ streak, dontShowUntil })
+    .where(and(eq(cards.id, id), eq(cards.userId, user.userId)));
+}

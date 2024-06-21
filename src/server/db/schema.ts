@@ -43,6 +43,10 @@ export const cards = createTable(
     languageId: integer('languageId')
       .references(() => languages.id)
       .notNull(),
+    dontShowUntil: timestamp('dont_show_until')
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    streak: integer('streak').default(0).notNull(),
   },
   (example) => ({ front: index('front_idx').on(example.front) }),
 );

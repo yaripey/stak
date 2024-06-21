@@ -1,7 +1,12 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { createCard, deleteCard, updateCard } from '../queries/cards';
+import {
+  createCard,
+  deleteCard,
+  updateCard,
+  updateCardStreak,
+} from '../queries/cards';
 import { redirect } from 'next/navigation';
 
 export async function createOrUpdateCard(
@@ -25,4 +30,12 @@ export async function deleteCardAction(id: number) {
 
   revalidatePath('/collection/cards');
   redirect('/collection/cards');
+}
+
+export async function updateCardStreakAction(
+  id: number,
+  streak: number,
+  dontShowUntil: Date,
+) {
+  await updateCardStreak(id, streak, dontShowUntil);
 }
