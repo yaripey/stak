@@ -18,7 +18,7 @@ export default function LanguagesTable({ languages }: LanguagesTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead>Language</TableHead>
-          <TableHead>Cards #</TableHead>
+          <TableHead>Cards Amount</TableHead>
           <TableHead className="text-right"></TableHead>
         </TableRow>
       </TableHeader>

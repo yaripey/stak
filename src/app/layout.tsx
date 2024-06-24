@@ -22,15 +22,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className="w-full">
         <body className={cn([inter.className, 'h-full w-full'])}>
-          <div className="p-5">
-            <SignedIn>
-              <TopBar />
-              <div className="flex h-full w-full">{children}</div>
-            </SignedIn>
-            <SignedOut>
-              <NotSignedPage />
-            </SignedOut>
-          </div>
+          <SignedIn>
+            <TopBar />
+            <div className="flex h-full w-full">{children}</div>
+          </SignedIn>
+          <SignedOut>
+            <NotSignedPage />
+          </SignedOut>
         </body>
       </html>
     </ClerkProvider>
