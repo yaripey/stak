@@ -4,14 +4,8 @@ import { CardType, LanguageType } from '@/server/db/schema';
 import CardSearch from './CardSearch';
 import CardsTable from './CardsTable';
 import { useState } from 'react';
-import {
-  Select,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-} from '@/components/ui/select';
 import { useSearchParams } from 'next/navigation';
+import LanguageSelector from '@/app/_components/LanguageSelector';
 
 type CardsCollectionProps = {
   cards: CardType[];
@@ -33,24 +27,12 @@ export default function CardsCollection({
 
   return (
     <div>
-      <div className="flex gap-4">
-        <Select
-          defaultValue={languageId?.toString()}
-          onValueChange={(newLanguageId) =>
-            setLanguageId(parseInt(newLanguageId))
-          }
-        >
-          <SelectTrigger className="w-72">
-            <SelectValue placeholder="Select language" />
-          </SelectTrigger>
-          <SelectContent>
-            {languages.map((language) => (
-              <SelectItem key={language.id} value={language.id.toString()}>
-                {language.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex h-20 gap-4 p-5">
+        <LanguageSelector
+          languages={languages}
+          languageId={languageId}
+          setLanguageId={(newId) => setLanguageId(newId)}
+        />
         <CardSearch
           searchText={searchText}
           setSearchText={(newText) => setSearchText(newText)}
