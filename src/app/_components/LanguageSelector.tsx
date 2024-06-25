@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -6,10 +7,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { LanguageType } from '@/server/db/schema';
+import { BadgeX } from 'lucide-react';
 
 type LanguageSelectorProps = {
   languageId: number | null;
-  setLanguageId: (id: number) => void;
+  setLanguageId: (id: number | null) => void;
   languages: LanguageType[];
 };
 
@@ -19,24 +21,37 @@ export default function LanguageSelector({
   setLanguageId,
 }: LanguageSelectorProps) {
   return (
-    <Select
-      defaultValue={languageId?.toString()}
-      onValueChange={(newLanguageId) => setLanguageId(parseInt(newLanguageId))}
-    >
-      <SelectTrigger className="w-72 rounded-2xl border-4 border-cyan-500 bg-cyan-100 p-5 transition-all focus:border-cyan-300">
-        <SelectValue placeholder="Select language" />
-      </SelectTrigger>
-      <SelectContent className="bg-cyan-200">
-        {languages.map((language) => (
-          <SelectItem
-            className="transition-all"
-            key={language.id}
-            value={language.id.toString()}
-          >
-            {language.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="flex gap-1">
+      <Select
+        defaultValue={languageId?.toString()}
+        onValueChange={(newLanguageId) =>
+          setLanguageId(parseInt(newLanguageId))
+        }
+      >
+        <SelectTrigger className="w-72 rounded-2xl border-4 border-cyan-500 bg-cyan-100 p-5 transition-all focus:border-cyan-300">
+          <SelectValue placeholder="Select language" />
+        </SelectTrigger>
+        <SelectContent className="bg-cyan-200">
+          {languages.map((language) => (
+            <SelectItem
+              className="transition-all"
+              key={language.id}
+              value={language.id.toString()}
+            >
+              {language.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Button
+        disabled={!languageId}
+        variant={'destructive'}
+        className="box-content rounded-2xl border-4 border-red-600"
+        size="icon"
+        onClick={() => setLanguageId(null)}
+      >
+        <BadgeX size={23} />
+      </Button>
+    </div>
   );
 }
