@@ -71,7 +71,6 @@ export default function CardEditor({
                 languages={languages}
                 setLanguageId={field.onChange}
               />
-
               <FormMessage />
             </FormItem>
           )}

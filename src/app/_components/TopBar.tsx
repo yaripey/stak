@@ -25,7 +25,7 @@ export default function TopBar() {
           </Button>
         </Link>
 
-        <Link href="/create/card">
+        <Link href="/create">
           <Button
             className={cn(
               defaultButtonStyles,
