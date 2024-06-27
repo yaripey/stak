@@ -27,7 +27,7 @@ export default function CardsCollection({
 
   return (
     <div>
-      <div className="flex h-20 gap-4 p-5">
+      <div className="mb-14 flex h-20 flex-wrap gap-4 p-5">
         <LanguageSelector
           languages={languages}
           languageId={languageId}

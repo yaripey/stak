@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Page() {
   return (
-    <div className="flex w-full justify-center gap-10 pt-5">
+    <div className="flex w-full flex-wrap justify-center gap-10 pt-5">
       <Link href="/collection/cards">
         <Button className="box-content h-64 w-60 rounded-3xl border-b-8 border-b-amber-800 bg-amber-700 p-1 transition-all hover:-translate-y-2 hover:rotate-3 hover:bg-amber-500">
           <div className="flex h-full w-full flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed border-white">
