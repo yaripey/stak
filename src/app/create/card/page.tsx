@@ -17,5 +17,9 @@ export default async function Page() {
     redirect('/create/language');
   }
 
-  return <CardEditor languages={languages} />;
+  return (
+    <div className="pt-5">
+      <CardEditor languages={languages} />
+    </div>
+  );
 }

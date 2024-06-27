@@ -15,14 +15,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { LanguageType } from '@/server/db/schema';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { createOrUpdateCard } from '@/server/actions/cards';
+import LanguageSelector from './LanguageSelector';
 
 const formSchema = z.object({
   front: z.string(),
@@ -72,23 +66,12 @@ export default function CardEditor({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Language</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a language for this card" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {languages.map((language) => (
-                    <SelectItem
-                      key={language.id}
-                      value={language.id.toString()}
-                    >
-                      {language.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <LanguageSelector
+                languageId={parseInt(field.value)}
+                languages={languages}
+                setLanguageId={field.onChange}
+              />
+
               <FormMessage />
             </FormItem>
           )}

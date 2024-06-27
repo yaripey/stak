@@ -13,17 +13,18 @@ type LanguageSelectorProps = {
   languageId: number | null;
   setLanguageId: (id: number | null) => void;
   languages: LanguageType[];
+  clearButton?: boolean;
 };
 
 export default function LanguageSelector({
   languageId,
   languages,
   setLanguageId,
+  clearButton,
 }: LanguageSelectorProps) {
   return (
     <div className="flex gap-1">
       <Select
-        defaultValue={languageId?.toString()}
         onValueChange={(newLanguageId) =>
           setLanguageId(parseInt(newLanguageId))
         }
@@ -43,15 +44,17 @@ export default function LanguageSelector({
           ))}
         </SelectContent>
       </Select>
-      <Button
-        disabled={!languageId}
-        variant={'destructive'}
-        className="box-content rounded-2xl border-4 border-red-600"
-        size="icon"
-        onClick={() => setLanguageId(null)}
-      >
-        <BadgeX size={23} />
-      </Button>
+      {clearButton && (
+        <Button
+          disabled={!languageId}
+          variant={'destructive'}
+          className="box-content rounded-2xl border-4 border-red-600"
+          size="icon"
+          onClick={() => setLanguageId(null)}
+        >
+          <BadgeX size={23} />
+        </Button>
+      )}
     </div>
   );
 }

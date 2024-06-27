@@ -32,6 +32,7 @@ export default function CardsCollection({
           languages={languages}
           languageId={languageId}
           setLanguageId={(newId) => setLanguageId(newId)}
+          clearButton
         />
         <CardSearch
           searchText={searchText}
