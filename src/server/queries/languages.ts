@@ -6,7 +6,9 @@ import checkAuthorization from './helpers';
 export async function createLanguage(name: string) {
   const user = checkAuthorization();
 
-  await db.insert(languages).values({ name, userId: user.userId });
+  const newLanguages = await db.insert(languages).values({ name, userId: user.userId }).returning();
+
+  return newLanguages[0].id
 }
 
 export async function deleteLanguage(languageId: number) {
