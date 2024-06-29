@@ -1,6 +1,7 @@
 import { db } from '@/server/db';
 import { auth } from '@clerk/nextjs/server';
 import CardsLearner from '../_components/CardsLearner';
+import RoutingError from '@/app/_components/RoutingError';
 
 export default async function Learn({
   params,
@@ -18,8 +19,14 @@ export default async function Learn({
       and(eq(model.userId, user.userId), eq(model.id, languageIdNumber)),
   });
 
-  // TODO: Better language error
-  if (!language) return <div>Error selecting language.</div>;
+  if (!language)
+    return (
+      <RoutingError
+        href="/collection/languages"
+        buttonText="Back to your languages"
+        errorText="Something went wrong."
+      />
+    );
 
   const cards = await db.query.cards.findMany({
     where: (model, { eq, and, lte }) =>

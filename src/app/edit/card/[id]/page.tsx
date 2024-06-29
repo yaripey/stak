@@ -1,14 +1,21 @@
 import { auth } from '@clerk/nextjs/server';
-import EditErrorText from '../../_components/EditErrorText';
 import { db } from '@/server/db';
 import CardEditor from '@/app/_components/CardEditor';
+import RoutingError from '@/app/_components/RoutingError';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const user = auth();
 
   const checkedNumber = parseInt(params.id);
 
-  if (!checkedNumber) return <EditErrorText text="Invalid card id." />;
+  if (!checkedNumber)
+    return (
+      <RoutingError
+        href="/collection/cards"
+        buttonText="Back to your cards"
+        errorText="Invalid card id."
+      />
+    );
 
   const card = await (user.userId
     ? db.query.cards.findFirst({
@@ -24,7 +31,13 @@ export default async function Page({ params }: { params: { id: string } }) {
     : []);
 
   if (!card || Array.isArray(card))
-    return <EditErrorText text="There's no card with such id." />;
+    return (
+      <RoutingError
+        href="/collection/cards"
+        buttonText="Back to your cards"
+        errorText="There is no card with such id."
+      />
+    );
 
   return (
     <div className="flex w-full justify-center">
