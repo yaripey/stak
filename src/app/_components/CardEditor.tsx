@@ -40,9 +40,10 @@ export default function CardEditor({
   languageId,
   languages,
 }: CardEditorProps) {
+  const languageIdFromParams = useSearchParams().get('languageId');
   const initLanguageId = languageId
     ? languageId.toString()
-    : useSearchParams().get('languageId') ?? '';
+    : languageIdFromParams ?? '';
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
