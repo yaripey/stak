@@ -11,7 +11,7 @@ import { BadgeX } from 'lucide-react';
 
 type LanguageSelectorProps = {
   languageId: number | null;
-  setLanguageId: (id: number | null) => void;
+  setLanguageId: (id: string | null) => void;
   languages: LanguageType[];
   clearButton?: boolean;
 };
@@ -26,7 +26,7 @@ export default function LanguageSelector({
     <div className="flex gap-1">
       <Select
         onValueChange={(newLanguageId) =>
-          setLanguageId(parseInt(newLanguageId))
+          setLanguageId(newLanguageId)
         }
       >
         <SelectTrigger className="w-72 rounded-2xl border-4 border-cyan-500 bg-cyan-100 p-5 transition-all focus:border-cyan-300">
