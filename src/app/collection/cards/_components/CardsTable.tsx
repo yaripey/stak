@@ -13,7 +13,7 @@ import CardRow from './CardRow';
 type CardsTableProps = {
   cards: CardType[];
   searchText: string;
-  languageId: number | null;
+  languageId: number | undefined;
 };
 
 export default function CardsTable({

@@ -23,17 +23,19 @@ export default function CardsCollection({
     (language) => language.id === initLanguageId,
   );
   const [searchText, setSearchText] = useState('');
-  const [languageId, setLanguageId] = useState<number | null>(
-    doesLanguageExist ? initLanguageId : null,
+  const [languageId, setLanguageId] = useState<number | undefined>(
+    doesLanguageExist ? initLanguageId : undefined,
   );
 
-
-  if (cards.length === 0) return (
-    <div className="pt-5 flex justify-center flex-col items-center gap-2">
-      <p className="text-lg">You have no cards yet.</p>
-      <Link href="/create/card"><Button>Create a new card</Button></Link>
-    </div>
-  )
+  if (cards.length === 0)
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 pt-5">
+        <p className="text-lg">You have no cards yet.</p>
+        <Link href="/create/card">
+          <Button>Create a new card</Button>
+        </Link>
+      </div>
+    );
 
   return (
     <div>
@@ -41,7 +43,9 @@ export default function CardsCollection({
         <LanguageSelector
           languages={languages}
           languageId={languageId}
-          setLanguageId={(newId) => newId ? setLanguageId(parseInt(newId)) : newId}
+          setLanguageId={(newId) =>
+            setLanguageId(newId === undefined ? newId : parseInt(newId))
+          }
           clearButton
         />
         <CardSearch

@@ -10,8 +10,8 @@ import { LanguageType } from '@/server/db/schema';
 import { BadgeX } from 'lucide-react';
 
 type LanguageSelectorProps = {
-  languageId: number | null;
-  setLanguageId: (id: string | null) => void;
+  languageId: number | undefined;
+  setLanguageId: (id: string | undefined) => void;
   languages: LanguageType[];
   clearButton?: boolean;
 };
@@ -29,6 +29,7 @@ export default function LanguageSelector({
   return (
     <div className="flex gap-1">
       <Select
+        value={languageId === undefined ? '' : languageId.toString()}
         onValueChange={(newLanguageId) => setLanguageId(newLanguageId)}
         defaultValue={initLanguageId}
       >
@@ -53,7 +54,7 @@ export default function LanguageSelector({
           variant={'destructive'}
           className="box-content rounded-2xl border-4 border-red-600"
           size="icon"
-          onClick={() => setLanguageId(null)}
+          onClick={() => setLanguageId(undefined)}
         >
           <BadgeX size={23} />
         </Button>
