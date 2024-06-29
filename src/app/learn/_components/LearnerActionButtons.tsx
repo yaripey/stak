@@ -1,21 +1,21 @@
 import { Button } from '@/components/ui/button';
 
 type LearnerActionButtonsProps = {
-  flipCard: () => void;
-  isCardFlipped: boolean;
+  revealCard: () => void;
+  isCardRevealed: boolean;
   guessedCorrectly: () => void;
   guessedIncorrectly: () => void;
 };
 
 export default function LearnerActionButtons({
-  flipCard,
-  isCardFlipped,
+  revealCard,
+  isCardRevealed,
   guessedCorrectly,
   guessedIncorrectly,
 }: LearnerActionButtonsProps) {
   return (
     <div className="flex justify-center gap-5">
-      {isCardFlipped ? (
+      {isCardRevealed ? (
         <>
           <Button onClick={guessedIncorrectly} variant="destructive">
             I guessed incorrectly
@@ -26,7 +26,7 @@ export default function LearnerActionButtons({
         </>
       ) : (
         <>
-          <Button onClick={flipCard}>Flip</Button>
+          <Button onClick={revealCard}>Flip</Button>
         </>
       )}
     </div>

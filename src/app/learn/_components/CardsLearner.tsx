@@ -20,12 +20,25 @@ export default function CardsLearner({
     return cards[Math.floor(Math.random() * cards.length)];
   };
 
-  const [isCardFlipped, setIsCardFlipped] = useState(false);
+  const [isFrontShown, setIsFrontShown] = useState(false);
+  const [isBackShown, setIsBackShown] = useState(false);
   const [currentCard, setCurrentCard] = useState<CardType | null>(null);
   const [cards, setCards] = useState<CardType[]>(initCards);
 
+  const hideOnePart = () => {
+    const partToHide = Math.round(Math.random());
+    setIsBackShown(!!partToHide);
+    setIsFrontShown(!partToHide);
+  };
+
+  const revealCard = () => {
+    setIsFrontShown(true);
+    setIsBackShown(true);
+  };
+
   useEffect(() => {
     setCurrentCard(getRandomCard(initCards));
+    hideOnePart();
   }, [initCards]);
 
   if (cards.length === 0) return <div>There are no cards.</div>;
@@ -47,7 +60,7 @@ export default function CardsLearner({
     const newCards = cards.filter((c) => c.id !== card.id);
     setCards(newCards);
 
-    setIsCardFlipped(false);
+    hideOnePart();
     setCurrentCard(getRandomCard(newCards));
   };
 
@@ -59,7 +72,7 @@ export default function CardsLearner({
 
     await updateCardStreakAction(currentCard.id, newStreak, newDate);
 
-    setIsCardFlipped(false);
+    hideOnePart();
     setCurrentCard(getRandomCard(cards));
   };
 
@@ -72,13 +85,14 @@ export default function CardsLearner({
           <CardCard
             front={currentCard.front}
             back={currentCard.back}
-            flipped={isCardFlipped}
+            isFrontShown={isFrontShown}
+            isBackShown={isBackShown}
           />
           <LearnerActionButtons
             guessedCorrectly={guessedCorrectly}
             guessedIncorrectly={guessedIncorrectly}
-            isCardFlipped={isCardFlipped}
-            flipCard={() => setIsCardFlipped(true)}
+            revealCard={revealCard}
+            isCardRevealed={isFrontShown && isBackShown}
           />
         </>
       ) : (
