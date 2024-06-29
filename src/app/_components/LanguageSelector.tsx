@@ -22,12 +22,15 @@ export default function LanguageSelector({
   setLanguageId,
   clearButton,
 }: LanguageSelectorProps) {
+  const initLanguageId =
+    languages.some((lang) => lang.id === languageId) && languageId
+      ? languageId.toString()
+      : undefined;
   return (
     <div className="flex gap-1">
       <Select
-        onValueChange={(newLanguageId) =>
-          setLanguageId(newLanguageId)
-        }
+        onValueChange={(newLanguageId) => setLanguageId(newLanguageId)}
+        defaultValue={initLanguageId}
       >
         <SelectTrigger className="w-72 rounded-2xl border-4 border-cyan-500 bg-cyan-100 p-5 transition-all focus:border-cyan-300">
           <SelectValue placeholder="Select language" />

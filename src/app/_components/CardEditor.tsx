@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { LanguageType } from '@/server/db/schema';
 import { createOrUpdateCard } from '@/server/actions/cards';
 import LanguageSelector from './LanguageSelector';
+import { useSearchParams } from 'next/navigation';
 
 const formSchema = z.object({
   front: z.string(),
@@ -39,12 +40,16 @@ export default function CardEditor({
   languageId,
   languages,
 }: CardEditorProps) {
+  const initLanguageId = languageId
+    ? languageId.toString()
+    : useSearchParams().get('languageId') ?? '';
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       front: front ?? '',
       back: back ?? '',
-      languageId: languageId ? languageId.toString() : undefined,
+      languageId: initLanguageId,
     },
   });
 

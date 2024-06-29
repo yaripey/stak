@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { deleteLanguageAction } from '@/server/actions/languages';
-import { BookOpen, GraduationCap, Pencil, Trash } from 'lucide-react';
+import { BookOpen, FilePlus, GraduationCap, Pencil, Trash } from 'lucide-react';
 import Link from 'next/link';
 
 type LanguageRowsActionsProps = {
@@ -13,6 +13,12 @@ export default function LanguageRowActions({
   // TODO: remove code repetition
   return (
     <div className="flex items-center justify-end gap-3">
+      <Link href={`/create/card?languageId=${languageId}`}>
+        <Button variant="outline" size="icon">
+          <FilePlus size={16} />
+        </Button>
+      </Link>
+
       <Link href={`/learn/${languageId}`}>
         <Button variant="outline" size="icon">
           <GraduationCap size={16} />
